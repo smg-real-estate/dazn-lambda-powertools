@@ -1,6 +1,6 @@
 {
-  "name": "@dazn/lambda-powertools-middleware-correlation-ids",
-  "version": "1.29.0",
+  "name": "@smg-real-estate/dazn-lambda-powertools-middleware-correlation-ids",
+  "version": "1.30.0",
   "description": "Middy middleware for capturing correlation IDs from inbound event",
   "main": "index.js",
   "types": "index.d.ts",
@@ -18,6 +18,6 @@
     "uuid": "^3.2.1"
   },
   "publishConfig": {
-    "access": "public"
+    "registry": "https://npm.pkg.github.com/"
   }
 }
