@@ -1,7 +1,7 @@
 const _ = require('lodash')
 const uuid = require('uuid/v4')
 const middy = require('@middy/core')
-const dynamoDbClient = require('aws-sdk/clients/dynamodb')
+const { marshall, unmarshall } = require('@aws-sdk/util-dynamodb')
 const CorrelationIds = require('@dazn/lambda-powertools-correlation-ids')
 const captureCorrelationIds = require('../index')
 
@@ -34,9 +34,9 @@ const genDynamoEvent = (correlationIDs = {}) => {
 
   const record = event.Records[0]
 
-  const unmarshalledNewImage = dynamoDbClient.Converter.unmarshall(record.dynamodb.NewImage)
+  const unmarshalledNewImage = unmarshall(record.dynamodb.NewImage)
   const newImage = Object.assign(unmarshalledNewImage, data)
-  record.dynamodb.NewImage = dynamoDbClient.Converter.marshall(newImage)
+  record.dynamodb.NewImage = marshall(newImage)
 
   return event
 }

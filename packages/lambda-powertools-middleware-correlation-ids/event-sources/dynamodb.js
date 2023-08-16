@@ -1,4 +1,4 @@
-const dynamo = require('aws-sdk/clients/dynamodb')
+const { unmarshall } = require('@aws-sdk/util-dynamodb')
 const CorrelationIds = require('@dazn/lambda-powertools-correlation-ids')
 const Log = require('@dazn/lambda-powertools-logger')
 const consts = require('../consts')
@@ -27,7 +27,7 @@ function captureCorrelationIds ({ Records }, context, sampleDebugLogRate) {
 
       if (event.dynamodb.hasOwnProperty('NewImage') &&
         event.dynamodb.NewImage.hasOwnProperty('__context__')) {
-        const unmarshalledRecord = dynamo.Converter.unmarshall(
+        const unmarshalledRecord = unmarshall(
           event.dynamodb.NewImage
         )
         correlationIds = unmarshalledRecord.__context__
